@@ -66,4 +66,9 @@ public class Camera {
 	public int getResY() {
 		return resY;
 	}
+	
+	public void setRes(int resX, int resY) {
+		this.resX = resX;
+		this.resY = resY; 
+	}
 }

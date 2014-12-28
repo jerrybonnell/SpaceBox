@@ -26,7 +26,7 @@ public class GameEngine {
 		frame = new JFrame(title);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); //Make it so the the exit button ends the programm
 		frame.setFocusable(true); //Allows the frame to get focus
-		frame.setResizable(false); //Does not allow user to resize window
+		frame.setResizable(false); //does not allow user to resize window
 		
 		canvas = new Canvas(); //Where we ill draw
 		canvas.setPreferredSize(new Dimension(resX, resY));
@@ -55,6 +55,9 @@ public class GameEngine {
 		while(running) {
 			before = System.currentTimeMillis();
 			update(tpf); //date game logic
+			if(!running) {
+				break; 
+			}
 			render(); //Render game to screen
 			after= System.currentTimeMillis();
 			
@@ -88,6 +91,7 @@ public class GameEngine {
 	
 	public void stop() {
 		running = false;
+		frame.dispose();
 	}
 	
 	public void pushState(GameState state) {

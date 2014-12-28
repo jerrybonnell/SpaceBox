@@ -18,22 +18,31 @@ public class InputHandler implements KeyListener, MouseListener {
 	public class Button {
 		private boolean isPressed;
 		private double timePressed;
+		private int updatesPressed; 
 		
 		public Button () {
 			buttons.add(this);
 			isPressed = false;
 			timePressed = 0;
+			updatesPressed = 0;
 		}
 		
 		public void update(double tpf) {
-			if(isPressed)
+			if(isPressed) {
 				timePressed += tpf;
-			else
+				updatesPressed++; 
+			} else {
 				timePressed = 0;
+				updatesPressed = 0; 
+
+			}
 		}
 		
 		public void toggle(boolean p) {
 			isPressed = p;
+		}
+		public int updatesPressed() {
+			return updatesPressed; 
 		}
 		
 		public boolean isPressed() {
@@ -96,6 +105,8 @@ public class InputHandler implements KeyListener, MouseListener {
 	public Button tab = new Button();
 	public Button ctrl = new Button();
 	public Button esc = new Button();
+	public Button space = new Button(); 
+	public Button enter = new Button();
 	
 	public Button leftMouse = new Button();
 	public Button rightMouse = new Button();
@@ -236,6 +247,12 @@ public class InputHandler implements KeyListener, MouseListener {
 			break;
 		case KeyEvent.VK_ESCAPE:
 			esc.toggle(isPressed);
+			break;
+		case KeyEvent.VK_SPACE:
+			space.toggle(isPressed);
+			break;
+		case KeyEvent.VK_ENTER:
+			enter.toggle(isPressed);
 			break;
 		default: 
 			System.out.println("ERROR: Bad input 404");
