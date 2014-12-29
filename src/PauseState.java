@@ -2,10 +2,8 @@ import java.awt.Color;
 import java.awt.Font;
 import java.awt.Graphics2D;
 
-import javax.swing.JOptionPane;
-
+import Engine.AssetHandler;
 import Engine.Camera;
-import Engine.Entity;
 import Engine.GameEngine;
 import Engine.GameState;
 import Engine.InputHandler;
@@ -57,7 +55,7 @@ public class PauseState extends GameState {
 	}
 
 	@Override
-	public void render(Graphics2D g, Camera cam) {
+	public void render(Graphics2D g, Camera cam, AssetHandler assets) {
 		
 		g.setBackground(Color.BLACK);
 		g.clearRect(0, 0, cam.getResX(), cam.getResY());

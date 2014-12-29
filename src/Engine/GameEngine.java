@@ -13,6 +13,7 @@ public class GameEngine {
 	private JFrame frame;
 	private Canvas canvas; 
 	private Camera cam;
+	private AssetHandler assets; 
 	private InputHandler input;
 	private boolean running = false;
 	private String title;
@@ -40,6 +41,7 @@ public class GameEngine {
 		canvas.createBufferStrategy(2); //Use a buffer strategy in the canvas to prevent screen tearing
 		
 		input = new InputHandler(frame);
+		assets = new AssetHandler(); 
 	}
 
 	public void start() {
@@ -83,7 +85,7 @@ public class GameEngine {
 		Graphics2D g = (Graphics2D) bs.getDrawGraphics(); //Cast the graphics to 2D to get more methods
 		
 		if(!states.isEmpty())
-			states.peek().render(g, cam);
+			states.peek().render(g, cam, assets);
 		
 		g.dispose(); //Free up the graphics memory
 		bs.show(); //show what you drew
@@ -94,12 +96,20 @@ public class GameEngine {
 		frame.dispose();
 	}
 	
+	public AssetHandler getAssets() {
+		return assets; 
+	}
+	
 	public void pushState(GameState state) {
 		states.push(state);
 	}
 	
 	public GameState popState() {
 		return states.pop();
+	}
+	
+	public Camera getCamera() {
+		return cam; 
 	}
 
 }

@@ -2,6 +2,7 @@ import java.awt.Color;
 import java.awt.Font;
 import java.awt.Graphics2D;
 
+import Engine.AssetHandler;
 import Engine.Camera;
 import Engine.GameEngine;
 import Engine.GameState;
@@ -47,7 +48,7 @@ public class SettingMenuState extends GameState {
 		
 	}
 
-	public void render(Graphics2D g, Camera cam) {
+	public void render(Graphics2D g, Camera cam, AssetHandler assets) {
 		
 		g.setBackground(Color.BLACK);
 		g.clearRect(0, 0, cam.getResX(), cam.getResY());

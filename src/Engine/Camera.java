@@ -71,4 +71,5 @@ public class Camera {
 		this.resX = resX;
 		this.resY = resY; 
 	}
+	
 }

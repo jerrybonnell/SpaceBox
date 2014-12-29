@@ -5,6 +5,7 @@ import java.util.ArrayList;
 
 import javax.swing.JOptionPane;
 
+import Engine.AssetHandler;
 import Engine.Camera;
 import Engine.Collision;
 import Engine.Direction;
@@ -41,7 +42,7 @@ public class MainMenuState extends GameState {
 
 	public void update(InputHandler input, double tpf) {
 		for(Entity e : entities)
-			e.update(tpf);
+			e.update(input, tpf);
 		time += tpf;
 		if(input.down.updatesPressed() == 1) {
 			currentChoice++; 
@@ -101,12 +102,12 @@ public class MainMenuState extends GameState {
 				
 	}
 
-	public void render(Graphics2D g, Camera cam) {
+	public void render(Graphics2D g, Camera cam, AssetHandler assets) {
 		g.setBackground(Color.BLACK);
 		g.clearRect(0, 0, cam.getResX(), cam.getResY());
 		for(int i = 0; i < entities.size(); i++) {
 			g.setColor(new Color((int)(i * time) % 255, (int) (time * time) % 255, (i + 100) % 255));
-			entities.get(i).render(g, cam);
+			entities.get(i).render(g, cam, assets);
 		}
 		g.setColor(Color.WHITE);
 		g.setFont(new Font("Courier New", 1, 70));
@@ -129,7 +130,7 @@ public class MainMenuState extends GameState {
 		}
 
 		g.setFont(new Font("Courier New", 0, 10));
-		g.drawString("Version 1.0.0A", 0, 10);
+		g.drawString("Version 1.0.3A", 0, 10);
 		
 	}
 

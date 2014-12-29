@@ -4,8 +4,8 @@ import java.awt.Graphics2D;
 
 public class Entity {
 
-	private double width;
-	private double height;
+	protected double width;
+	protected double height;
 	protected int ID = 0; 
 	public double x;
 	public double y; 
@@ -22,12 +22,12 @@ public class Entity {
 		this(width, height, 0, 0);
 	}
 	
-	public void update(double tpf) {
+	public void update(InputHandler input, double tpf) {
 		x += vx * tpf; 
 		y += vy * tpf; 
 	}
 	
-	public void render(Graphics2D g,Camera cam) {
+	public void render(Graphics2D g,Camera cam, AssetHandler assets) {
 		int sw = (int)(width * cam.getZoom());
 		int sh = (int) (height * cam.getZoom());
 		g.drawRect(cam.screenX(x) - sw/2, cam.screenY(y) - sh/2, sw, sh); //sw/2 and sh/2 are used to convert params to corner		

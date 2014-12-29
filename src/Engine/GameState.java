@@ -11,6 +11,6 @@ public abstract class GameState {
 	}
 	
 	public abstract void update(InputHandler input, double tpf);
-	public abstract void render(Graphics2D g, Camera cam);
+	public abstract void render(Graphics2D g, Camera cam, AssetHandler assets);
 
 }
