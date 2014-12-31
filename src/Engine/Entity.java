@@ -28,8 +28,8 @@ public class Entity {
 	}
 	
 	public void render(Graphics2D g,Camera cam, AssetHandler assets) {
-		int sw = (int)(width * cam.getZoom());
-		int sh = (int) (height * cam.getZoom());
+		int sw = (int)(width * cam.getScale());
+		int sh = (int) (height * cam.getScale());
 		g.drawRect(cam.screenX(x) - sw/2, cam.screenY(y) - sh/2, sw, sh); //sw/2 and sh/2 are used to convert params to corner		
 	}
 	

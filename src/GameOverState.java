@@ -9,19 +9,18 @@ import Engine.GameState;
 import Engine.InputHandler;
 
 
-public class PauseState extends GameState {
+public class GameOverState extends GameState {
 	
 	private String[] choices;
 	private int currentChoice;
 	private double time; 
 	
-	public PauseState(GameEngine game) {
+	public GameOverState(GameEngine game) {
 		super(game);
 		time = 0; 
-		choices = new String[3]; 
-		choices[0] = "Unpause";
-		choices[1] = "Restart";
-		choices[2] = "Return to Main Menu";
+		choices = new String[2]; 
+		choices[0] = "Retry?";
+		choices[1] = "Return to Main Menu";
 		currentChoice = 0;
 	}
 
@@ -42,15 +41,12 @@ public class PauseState extends GameState {
 			switch(currentChoice) {
 			case (0):
 				game.popState();
+				game.popState();
+				game.pushState(new SpaceGliderState(game));
 				break;
 			case(1): 
 				game.popState();
 				game.popState();
-				game.pushState(new SpaceGliderState(game));
-				break;
-			case(2):
-				game.popState();
-				game.popState(); 
 				break;
 			default: 
 				System.out.println("ERROR: Null menu option.");
@@ -67,8 +63,8 @@ public class PauseState extends GameState {
 		g.clearRect(0, 0, cam.getResX(), cam.getResY());
 		g.setColor(Color.WHITE);
 		g.setFont(new Font("Courier New", 1, 70));
-		int titleWidth = g.getFontMetrics().stringWidth("Paused");
-		g.drawString("Paused", (cam.getResX() - titleWidth) /2 , (int) (cam.getResY() * 0.2));
+		int titleWidth = g.getFontMetrics().stringWidth("Game Over!!");
+		g.drawString("Game Over!!", (cam.getResX() - titleWidth) /2 , (int) (cam.getResY() * 0.2));
 		
 		
 		for(int i = 0; i < choices.length; i++) {

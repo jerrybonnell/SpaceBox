@@ -38,6 +38,7 @@ public class MainMenuState extends GameState {
 		choices[0] = "Play";
 		choices[1] = "Settings";
 		choices[2] = "Quit"; 
+		
 	}
 
 	public void update(InputHandler input, double tpf) {
@@ -103,6 +104,7 @@ public class MainMenuState extends GameState {
 	}
 
 	public void render(Graphics2D g, Camera cam, AssetHandler assets) {
+		game.getCamera().reset();
 		g.setBackground(Color.BLACK);
 		g.clearRect(0, 0, cam.getResX(), cam.getResY());
 		for(int i = 0; i < entities.size(); i++) {

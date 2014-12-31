@@ -30,6 +30,9 @@ public class AssetHandler {
 		return images.get(name);
 	}
 	
+	public void clearImages() {
+		images.clear();
+	}
 	
 	
 }

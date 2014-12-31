@@ -14,7 +14,7 @@ public class MrFreeze extends Entity {
 	private double dy; 
 	private double cx;
 	private double cy; 
-	private double speed; 
+	private double period; 
 
 	public MrFreeze(double width, double height, double x, double y) {
 		super(width, height, x, y);
@@ -22,12 +22,12 @@ public class MrFreeze extends Entity {
 		time = 0;
 		cx = x;
 		cy = y; 
-		speed = 10;
+		period = 4.3;
 	}
 	
 	public void update(InputHandler input, double tpf) {
 		super.update(input, tpf);
-		time += tpf * speed; 
+		time += tpf * (2 * Math.PI) / period; 
 		x = cx + dx * Math.sin(time); 
 		y = cy + dy * Math.sin(time); 
 	}
@@ -37,10 +37,14 @@ public class MrFreeze extends Entity {
 		this.dy = dy; 
 	}
 	
+	public void setPeriod(double period) {
+		this.period = period;
+	}
+	
 	public void render(Graphics2D g,Camera cam, AssetHandler assets) {
 		Image img = assets.getImage("enemy2"); 
-		int sw = (int)(width * cam.getZoom());
-		int sh = (int) (height * cam.getZoom());
+		int sw = (int)(width * cam.getScale());
+		int sh = (int) (height * cam.getScale());
 		
 		if (img == null) {
 			g.drawRect(cam.screenX(x) - sw/2, cam.screenY(y) - sh/2, sw, sh); //sw/2 and sh/2 are used to convert params to corner	
