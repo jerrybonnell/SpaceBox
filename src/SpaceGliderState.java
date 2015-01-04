@@ -37,6 +37,9 @@ public class SpaceGliderState extends GameState {
 		if (stage.wasLost()) {
 			game.pushState(new GameOverState(game));
 		}
+		if (stage.wasWon()) {
+			game.pushState(new GameWinState(game));
+		}
 	
 	}
 

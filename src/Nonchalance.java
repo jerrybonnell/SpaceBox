@@ -13,7 +13,7 @@ public class Nonchalance extends Entity {
 	private double r;
 	private double cx;
 	private double cy; 
-	private double speed; 
+	private double period; 
 
 	public Nonchalance (double width, double height, double x, double y) {
 		super(width, height, x, y);
@@ -21,18 +21,22 @@ public class Nonchalance extends Entity {
 		time = 0;
 		cx = x;
 		cy = y; 
-		speed = 1.8;
+		period = 1.8;
 	}
 	
 	public void update(InputHandler input, double tpf) {
 		super.update(input, tpf);
-		time += tpf * speed; 
-		x = cx + r * Math.sin(time); 
-		y = cy + r * Math.cos(time); 
+		time += tpf; 
+		x = cx + r * Math.sin(time * (2 * Math.PI) / period); 
+		y = cy + r * Math.cos(time * (2 * Math.PI) / period); 
 	}
 	
 	public void setRadius(double r) {
 		this.r = r;
+	}
+	
+	public void setPeriod(double period) {
+		this.period = period; 
 	}
 	
 	public void render(Graphics2D g,Camera cam, AssetHandler assets) {

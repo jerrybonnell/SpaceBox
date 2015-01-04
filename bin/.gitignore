@@ -10,3 +10,7 @@
 /MrFreeze.class
 /SirBologny.class
 /SirBologna.class
+/GameOverState.class
+/Stage.class
+/Wall.class
+/GameWinState.class

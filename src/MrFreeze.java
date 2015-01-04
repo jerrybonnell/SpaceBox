@@ -27,9 +27,9 @@ public class MrFreeze extends Entity {
 	
 	public void update(InputHandler input, double tpf) {
 		super.update(input, tpf);
-		time += tpf * (2 * Math.PI) / period; 
-		x = cx + dx * Math.sin(time); 
-		y = cy + dy * Math.sin(time); 
+		time += tpf ; 
+		x = cx + dx * Math.sin(time* (2 * Math.PI) / period); 
+		y = cy + dy * Math.sin(time* (2 * Math.PI) / period); 
 	}
 	
 	public void setDisplacement(double dx, double dy) {

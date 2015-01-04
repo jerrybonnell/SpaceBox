@@ -14,7 +14,8 @@ public class SirBologna extends Entity {
 	private double dy; 
 	private double cx;
 	private double cy; 
-	private double speed; 
+	private double periodX;
+	private double periodY; 
 
 	public SirBologna(double width, double height, double x, double y) {
 		super(width, height, x, y);
@@ -22,19 +23,24 @@ public class SirBologna extends Entity {
 		time = 0;
 		cx = x;
 		cy = y; 
-		speed = 10;
+		periodX = 10;
+		periodY = 5; 
 	}
 	
 	public void update(InputHandler input, double tpf) {
 		super.update(input, tpf);
-		time += tpf * speed; 
-		x = cx + dx * Math.sin(time); 
-		y = cy + dy * Math.sin(2*time); 
+		time += tpf; 
+		x = cx + dx * Math.sin(time * (2 * Math.PI) / periodX); 
+		y = cy + dy * Math.sin(time * (2 * Math.PI) / periodY); 
 	}
 	
 	public void setDisplacement(double dx, double dy) {
 		this.dx = dx;
 		this.dy = dy; 
+	}
+	public void setPeriod(double x, double y) {
+		periodX = x;
+		periodY = y;
 	}
 	
 	public void render(Graphics2D g,Camera cam, AssetHandler assets) {

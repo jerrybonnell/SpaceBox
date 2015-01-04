@@ -25,20 +25,16 @@ public class Glider extends Entity {
 	public void update(InputHandler input, double tpf) {
 		super.update(input, tpf);
 		
-		if (input.a.isPressed())
+		if (input.a.isPressed() || input.left.isPressed())
 			direction += 7 * tpf; 
-		if (input.d.isPressed())
+		if (input.d.isPressed() || input.right.isPressed())
 			direction -= 7 * tpf;
 		
-		if (input.w.isPressed()) {
+		if (input.w.isPressed() || input.up.isPressed()) {
 			acceleration = 10;
 			fire = true;
-		}
-		if (input.s.isPressed()) {
-			acceleration = -10;
-		}
-		
-		if (!input.w.isPressed() && !input.s.isPressed()) {
+		}		
+		if (!(input.w.isPressed() || input.up.isPressed())) {
 			acceleration = 0;
 			fire = false;
 		}
