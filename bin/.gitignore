@@ -14,3 +14,7 @@
 /Stage.class
 /Wall.class
 /GameWinState.class
+/ScoreState.class
+/NewScoreState.class
+/ScoreState$Player.class
+/ScoreState$1.class

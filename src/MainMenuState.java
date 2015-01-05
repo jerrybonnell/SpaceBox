@@ -33,11 +33,12 @@ public class MainMenuState extends GameState {
 				e.vy = Math.random() * 10 - 5;
 				entities.add(e);
 			}
-		choices = new String[3];
+		choices = new String[4];
 		currentChoice = 0; 
 		choices[0] = "Play";
-		choices[1] = "Settings";
-		choices[2] = "Quit"; 
+		choices[1] = "Scores";
+		choices[2] = "Settings";
+		choices[3] = "Quit"; 
 		
 	}
 
@@ -47,12 +48,12 @@ public class MainMenuState extends GameState {
 		time += tpf;
 		if(input.down.updatesPressed() == 1) {
 			currentChoice++; 
-			currentChoice %= 3; 
+			currentChoice %= choices.length; 
 		}
 		if(input.up.updatesPressed() == 1) {
 			currentChoice--; 
 			if(currentChoice < 0)
-				currentChoice = 2;
+				currentChoice = choices.length - 1;
 		}
 		for (int i = 0; i < entities.size(); i++)
 			for (int j=i + 1; j < entities.size(); j++){
@@ -87,10 +88,13 @@ public class MainMenuState extends GameState {
 			case (0):
 				game.pushState(new SpaceGliderState(game));
 				break;
-			case(1): 
+			case (1):
+				game.pushState(new ScoreState(game));
+				break;
+			case(2): 
 				game.pushState(new SettingMenuState(game));
 				break;
-			case(2):
+			case(3):
 				game.stop();
 				JOptionPane.showMessageDialog(null, "Thanks for playing!"); 
 				break;
@@ -121,18 +125,18 @@ public class MainMenuState extends GameState {
 			if(currentChoice == i) {
 				g.setFont(new Font("Courier New", 1, 40));
 				titleWidth = g.getFontMetrics().stringWidth("> " + choices[i] + " <");
-				g.drawString("> " + choices[i] + " <", (cam.getResX() - titleWidth) /2 , (int) (cam.getResY() * (0.2 * (i + 2))));
+				g.drawString("> " + choices[i] + " <", (cam.getResX() - titleWidth) /2 , (int) (cam.getResY() * (0.17 * (i + 2))));
 			
 			} else {
 				g.setFont(new Font("Courier New", 0, 40));
 				titleWidth = g.getFontMetrics().stringWidth(choices[i]);
-				g.drawString(choices[i], (cam.getResX() - titleWidth) /2 , (int) (cam.getResY() * (0.2 * (i + 2))));
+				g.drawString(choices[i], (cam.getResX() - titleWidth) /2 , (int) (cam.getResY() * (0.17 * (i + 2))));
 		
 			}
 		}
 
 		g.setFont(new Font("Courier New", 0, 10));
-		g.drawString("Version 1.0.3A", 0, 10);
+		g.drawString("Version 1.0.6A", 0, 10);
 		
 	}
 

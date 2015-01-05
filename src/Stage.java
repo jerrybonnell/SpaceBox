@@ -27,7 +27,7 @@ public class Stage {
 	private int numLevels;
 	private int numLives;
 	private int currentLevel;
-	private int score;
+	public static int score;
 
 	public Stage(double width, double height, int numLevels) {
 		setStage(width, height, numLevels);
@@ -88,6 +88,7 @@ public class Stage {
 				enemies.add(sir);
 			}
 		}
+		currentLevel = (int) (player.y / roomHeight);
 	}
 
 	public void setStage(double width, double height, int numLevels) {
@@ -119,6 +120,7 @@ public class Stage {
 		}
 		player.update(input, tpf);
 		currentLevel = (int) (player.y / roomHeight);
+
 
 		boolean died = false;
 		time += tpf;
@@ -163,7 +165,7 @@ public class Stage {
 			player.vy = 0;
 		}
 		
-		score = (int) (numLives * currentLevel * 1000 / Math.log(time + 1));
+		score = (int) ((numLives + 1) * currentLevel * 1000 / Math.log(time + 1));
 		
 	}
 	

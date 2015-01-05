@@ -46,7 +46,7 @@ public class GameWinState extends GameState {
 		g.setBackground(Color.BLACK);
 		g.clearRect(0, 0, cam.getResX(), cam.getResY());
 		g.setColor(Color.WHITE);
-		g.setFont(new Font("Courier New", 1, 70));
+		g.setFont(new Font("Courier New", 1, 50));
 		int titleWidth = g.getFontMetrics().stringWidth("Congratulations! You Win!!");
 		g.drawString("Congratulations! You Win!!", (cam.getResX() - titleWidth) /2 , (int) (cam.getResY() * 0.2));
 		
