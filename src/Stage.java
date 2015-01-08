@@ -24,9 +24,12 @@ public class Stage {
 	private double totalWidth;
 	private double roomHeight;
 	private double time;
+	private double boomTimer; 
+	private double deathX, deathY;
 	private int numLevels;
 	private int numLives;
 	private int currentLevel;
+	private int highestLevel;
 	public static int score;
 
 	public Stage(double width, double height, int numLevels) {
@@ -36,6 +39,9 @@ public class Stage {
 		player = new Glider(1, 1, 2, 2);
 		time = 0;
 		score = 0;
+		this.numLevels = numLevels;
+		highestLevel = 0;
+		boomTimer = -1;
 	}
 
 	public void loadStage(File levelFile) {
@@ -115,6 +121,12 @@ public class Stage {
 	}
 
 	public void update(InputHandler input, double tpf) {
+		
+		if (currentLevel > highestLevel) {
+			highestLevel = currentLevel;
+			numLives++;
+		}
+		
 		for (Entity e : enemies) {
 			e.update(input, tpf);
 		}
@@ -124,6 +136,7 @@ public class Stage {
 
 		boolean died = false;
 		time += tpf;
+		boomTimer += tpf; 
 		// Extreme border collision
 		ArrayList<Collision> borderCollision = new ArrayList<Collision>();
 		borderCollision.add(player.collides(leftWall));
@@ -133,6 +146,7 @@ public class Stage {
 		for (Wall wall : horizontalWalls)
 			borderCollision.add(player.collides(wall));
 		
+		//extreme border collision, including divider walls 
 		for (Collision c : borderCollision) {
 			if(c == null)
 				continue;
@@ -156,16 +170,26 @@ public class Stage {
 		
 		for (Entity enemy : enemies)
 			died = player.collides(enemy) != null || died;
+		
+		//handling rare glitch case where collision detection fails 
+		if (score < 0)
+			died = true; 
+		if (Math.abs(player.x) > totalWidth)
+			died = true;
 
 		if (died) {
 			numLives--;
+			deathX = player.x;
+			deathY = player.y;
 			player.y = roomHeight * currentLevel + 2;
 			player.x = currentLevel % 2 == 0? rightWall.x - 2 : leftWall.x + 2;
 			player.vx = 0;
 			player.vy = 0;
+			boomTimer = 0;
 		}
 		
 		score = (int) ((numLives + 1) * currentLevel * 1000 / Math.log(time + 1));
+
 		
 	}
 	
@@ -208,5 +232,14 @@ public class Stage {
 		g.drawString("Level: " + (currentLevel + 1), (int) (cam.getResX() - titleWidth)/2, (int) (cam.getResY() * 0.1));
 		titleWidth = g.getFontMetrics().stringWidth("SCORE: " + score);
 		g.drawString("SCORE: " + score, (cam.getResX() - titleWidth)  , (int) (cam.getResY() * 0.045));
+		//draw boom gif
+		if (boomTimer < 1 && boomTimer >= 0) { 
+			int sw = 3 * (int)(player.getWidth() * cam.getScale());
+			int sh = 3 * (int) (player.getHeight() * cam.getScale());
+			g.drawImage(assets.getImage("boom"), cam.screenX(deathX) - sw/2, cam.screenY(deathY) - sh/2,
+					sw, sh, null);
+		} else {
+			boomTimer = -1; 
+		}
 	}
 }

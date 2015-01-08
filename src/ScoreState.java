@@ -71,7 +71,7 @@ public class ScoreState extends GameState {
 			if (currentChoice < 0)
 				currentChoice = choices.length - 1;
 		}
-
+		
 		vel += 42 * tpf;
 		if (vel > 100)
 			vel = 100; 
@@ -79,6 +79,8 @@ public class ScoreState extends GameState {
 		if (input.enter.updatesPressed() == 1) {
 			switch (currentChoice) {
 			case (0):
+				game.getAssets().stopAllMusic();
+				game.getAssets().getMusic("general").play(true);
 				game.popState();
 				break;
 			default:
@@ -90,9 +92,19 @@ public class ScoreState extends GameState {
 	}
 
 	public void render(Graphics2D g, Camera cam, AssetHandler assets) {
-
+		
 		g.setBackground(Color.BLACK);
 		g.clearRect(0, 0, cam.getResX(), cam.getResY());
+		
+		g.drawImage(assets.getImage("glider"), 400 + (int)(400 * Math.sin(time)), 300 + (int)(300 * Math.cos(time)), 50, 50, null);
+		g.drawImage(assets.getImage("enemy1"), 400 + (int)(400 * Math.sin(time - 1)), 300 + (int)(300 * Math.cos(time - 1)),50, 50, null);
+		if (time > 10) {
+			g.drawImage(assets.getImage("enemy3"), 400 + (int)(400 * Math.sin(time - 2)), 300 + (int)(300 * Math.cos(time - 2)),50, 50, null);
+		}
+		if (time > 20) {
+			g.drawImage(assets.getImage("enemy2"), 400 + (int)(400 * Math.sin(time - 3)), 300 + (int)(300 * Math.cos(time - 3)),50, 50, null);
+		}
+		
 		int titleWidth;
 		g.setFont(new Font("Courier New", 1, 70));
 		for (int i = 0; i < scoreBoard.size(); i++) {
@@ -153,6 +165,8 @@ public class ScoreState extends GameState {
 				g.drawString("New High Score!", (int)(cam.getResX() - titleWidth) / 2 , (int) (0.2 * cam.getResY()));
 			}
 		}
+		
+		
 	}
 
 }

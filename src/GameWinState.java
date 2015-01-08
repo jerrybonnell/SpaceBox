@@ -18,20 +18,33 @@ public class GameWinState extends GameState {
 	public GameWinState(GameEngine game) {
 		super(game);
 		time = 0; 
-		choices = new String[1]; 
+		choices = new String[2]; 
 		choices[0] = "Sweet!";
+		choices[1] = "Save my score!";
 		currentChoice = 0;
 	}
 
 	
 	public void update(InputHandler input, double tpf) {
 		time += tpf; 
+		
+		if(input.down.updatesPressed() == 1) {
+			currentChoice++; 
+			currentChoice %= choices.length; 
+		}
+		if(input.up.updatesPressed() == 1) {
+			currentChoice--; 
+			if(currentChoice < 0)
+				currentChoice = choices.length -1;
+		}
 		if (input.enter.updatesPressed() == 1) {
 			switch(currentChoice) {
 			case (0):
 				game.popState();
 				game.popState();
 				break;
+			case(1):
+				game.pushState(new NewScoreState(game));
 			default: 
 				System.out.println("ERROR: Null menu option.");
 				break;
@@ -49,7 +62,6 @@ public class GameWinState extends GameState {
 		g.setFont(new Font("Courier New", 1, 50));
 		int titleWidth = g.getFontMetrics().stringWidth("Congratulations! You Win!!");
 		g.drawString("Congratulations! You Win!!", (cam.getResX() - titleWidth) /2 , (int) (cam.getResY() * 0.2));
-		
 		
 		for(int i = 0; i < choices.length; i++) {
 			if(currentChoice == i) {

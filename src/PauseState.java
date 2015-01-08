@@ -23,6 +23,7 @@ public class PauseState extends GameState {
 		choices[1] = "Restart";
 		choices[2] = "Return to Main Menu";
 		currentChoice = 0;
+		game.getAssets().getMusic("gameplay").pause();
 	}
 
 	
@@ -41,14 +42,17 @@ public class PauseState extends GameState {
 		if (input.enter.updatesPressed() == 1) {
 			switch(currentChoice) {
 			case (0):
+				game.getAssets().getMusic("gameplay").play(true);
 				game.popState();
 				break;
 			case(1): 
 				game.popState();
 				game.popState();
-				game.pushState(new SpaceGliderState(game));
+				game.pushState(new SpaceBoxState(game));
 				break;
 			case(2):
+				game.getAssets().stopAllMusic();
+				game.getAssets().getMusic("general").play(true);;
 				game.popState();
 				game.popState(); 
 				break;

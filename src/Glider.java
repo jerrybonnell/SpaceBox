@@ -10,14 +10,12 @@ import Engine.InputHandler;
 public class Glider extends Entity {
 	
 	private double direction; 
-	private double speed; 
 	private double acceleration;
 	boolean fire = false;
 
 	public Glider(double width, double height, double x, double y) {
 		super(width, height, x, y);
 		ID = IDList.GLIDER; 
-		speed = 0;
 		acceleration = 4.5; 
 		direction = Math.PI / 2;
 	}

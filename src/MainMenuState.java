@@ -5,6 +5,8 @@ import java.util.ArrayList;
 
 import javax.swing.JOptionPane;
 
+import kuusisto.tinysound.Music;
+import kuusisto.tinysound.TinySound;
 import Engine.AssetHandler;
 import Engine.Camera;
 import Engine.Collision;
@@ -37,9 +39,10 @@ public class MainMenuState extends GameState {
 		currentChoice = 0; 
 		choices[0] = "Play";
 		choices[1] = "Scores";
-		choices[2] = "Settings";
+		choices[2] = "Help";
 		choices[3] = "Quit"; 
 		
+		game.getAssets().getMusic("general").play(true);
 	}
 
 	public void update(InputHandler input, double tpf) {
@@ -86,13 +89,13 @@ public class MainMenuState extends GameState {
 		if (input.enter.updatesPressed() == 1) {
 			switch(currentChoice) {
 			case (0):
-				game.pushState(new SpaceGliderState(game));
+				game.pushState(new SpaceBoxState(game));
 				break;
 			case (1):
 				game.pushState(new ScoreState(game));
 				break;
 			case(2): 
-				game.pushState(new SettingMenuState(game));
+				game.pushState(new HelpMenuState(game));
 				break;
 			case(3):
 				game.stop();
@@ -117,8 +120,8 @@ public class MainMenuState extends GameState {
 		}
 		g.setColor(Color.WHITE);
 		g.setFont(new Font("Courier New", 1, 70));
-		int titleWidth = g.getFontMetrics().stringWidth("Space Glider!");
-		g.drawString("Space Glider!", (cam.getResX() - titleWidth) /2 , (int) (cam.getResY() * 0.2));
+		int titleWidth = g.getFontMetrics().stringWidth("Space Box!");
+		g.drawString("Space Box!", (cam.getResX() - titleWidth) /2 , (int) (cam.getResY() * 0.2));
 		
 		
 		for(int i = 0; i < choices.length; i++) {
@@ -136,7 +139,7 @@ public class MainMenuState extends GameState {
 		}
 
 		g.setFont(new Font("Courier New", 0, 10));
-		g.drawString("Version 1.0.6A", 0, 10);
+		g.drawString("Beta Version 1", 0, 10);
 		
 	}
 
